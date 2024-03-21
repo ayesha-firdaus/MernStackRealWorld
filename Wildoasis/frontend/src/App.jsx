@@ -10,8 +10,9 @@ import PageNotFound from './Pages/PageNotFound'
 import Cabins from './Pages/Cabins'
 import AppLayout from './ui/AppLayout'
 import Login from './Pages/Login'
+import React from 'react'
 
-function App() {
+export default function App() {
 
 
   return (
