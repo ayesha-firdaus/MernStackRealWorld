@@ -4,8 +4,9 @@ import CabinTable from '../features/cabins/CabinTable';
 import Heading from "../ui/Heading"
 import CreateCabinForm from '../features/cabins/CreateCabinForm';
 import Button from '../ui/Button';
+import AddCabin from '../features/cabins/AddCabin';
 function Cabins() {
-  const [isShowForm,setSetForm]=useState(false);
+
   return (
     <>
  <Row type="horizontal">
@@ -14,8 +15,7 @@ function Cabins() {
  </Row>
  <Row >
   <CabinTable />
-  <Button onClick={()=>setSetForm(prev=>!prev)}>Add new Cabin</Button>
-  {isShowForm&&<CreateCabinForm />}
+ <AddCabin /> 
  </Row>
  </>
   )

@@ -1,9 +1,12 @@
-export async function apiCabin(url, reqname, givenData = null) {
+export async function apiCabin(url="", reqname="", givenData = null) {
+    console.log(givenData)
+    console.log(url)
+    console.log(reqname)
     const reqobj = {
         method: reqname
     };
 
-    if (reqname === "POST" || reqname === "UPDATE") {
+    if (reqname === "POST" || reqname === "PATCH") {
         reqobj.headers = {
             "Content-Type": "application/json"
         };
@@ -15,6 +18,7 @@ export async function apiCabin(url, reqname, givenData = null) {
 
     const res = await fetch(url, reqobj);
     const data = await res.json();
+
 
     if (data.status === "fail" ||data.status === "error") {
         console.error(data);

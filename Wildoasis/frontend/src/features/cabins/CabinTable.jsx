@@ -27,15 +27,11 @@ padding: 1.6rem 2.4rem;
 import React from 'react'
 import Spinner from "../../ui/Spinner";
 import CabinRow from "./CabinRow";
+import useCabins from "./useCabins";
 
 function CabinTable() {
 
-const {isLoading,data:cabins,error}=useQuery({
-      queryKey:['cabins'],
-      queryFn: ()=>apiCabin(`/api/cabin/getcabins`, "GET"),
-    
-    })
-
+const {isLoading,cabins}=useCabins();
 
   if(isLoading) 
   {
