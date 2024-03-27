@@ -26,7 +26,7 @@ const cabinSchema=new mongoose.Schema({
 
     },
     image:{
-   
+        required:true,
         type:String
     }
 })

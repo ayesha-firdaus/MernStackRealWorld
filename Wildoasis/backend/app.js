@@ -1,6 +1,6 @@
 const globalerrorHandler=require("./Controllers/errorController");
 const express=require('express');
-const AppError = require('./Utils/Apperror');
+const AppError = require('./Utils/AppError');
 const cabinRouter=require("./Routes/cabinsRoute");
 const app=express();
 app.use(express.json())

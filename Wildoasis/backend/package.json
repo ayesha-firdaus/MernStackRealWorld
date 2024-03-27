@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev:prod": "set Node_env=development && nodemon index.js",
+    "dev:prod": "set Node_env=production && nodemon index.js",
     "dev:dev": "set Node_env=development && nodemon index.js"
   },
   "author": "",

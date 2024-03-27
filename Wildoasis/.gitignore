@@ -23,3 +23,6 @@ dist-ssr
 *.sln
 *.sw?
 .env
+Node_env="development"
+
+# database=mongodb+srv://ayeshafirdaus21:z8SivHhTUzGZAui9@cluster0.ufmugyu.mongodb.net/Database?retryWrites=true

@@ -1,22 +1,33 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 
 import GlobalStyles from './styles/GlobalStyles'
-import Dashboard from './Pages/Dashboard'
-import Account from './Pages/Account'
-import Settings from './Pages/Settings'
-import Bookings from './Pages/Bookings'
-import Users from './Pages/Users'
-import PageNotFound from './Pages/PageNotFound'
-import Cabins from './Pages/Cabins'
+import Dashboard from './pages/Dashboard'
+import Account from './pages/Account'
+import Settings from './pages/Settings'
+import Bookings from './pages/Bookings'
+import Users from './pages/Users'
+import PageNotFound from './pages/PageNotFound'
+import Cabins from './pages/Cabins'
 import AppLayout from './ui/AppLayout'
-import Login from './Pages/Login'
+import Login from './pages/Login'
+import {ReactQueryDevtools} from "@tanstack/react-query-devtools"
 import React from 'react'
-
+import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
+import Toaster from "react-hot-toast"
+const queryClient=new QueryClient({
+  defaultOptions:{
+    queries:{
+      staleTime:0,
+    }
+  }
+})
 export default function App() {
 
 
   return (
     <>
+    <QueryClientProvider client={queryClient}>
+    <ReactQueryDevtools initialIsOpen={false} />
     <GlobalStyles />
     <BrowserRouter>
     <Routes>
@@ -35,6 +46,22 @@ export default function App() {
 
     </Routes>
     </BrowserRouter>
+    <Toaster position="top-center" gutter={12} containerStyle={{margin:"8px"}} toastOptions={{
+      success:{
+        duration:3000,
+      },
+      error:{
+        duration:5000,
+      },
+      styles:{
+        fontSize:"16px",
+        maxWidth:"500px",
+        padding:"16px 24px",
+        backgroundColor:"var(--color-grey-0)",
+        color:"var(--color-grey-700)",
+      }
+    }}/>
+    </QueryClientProvider>
     </>
   )
 }
