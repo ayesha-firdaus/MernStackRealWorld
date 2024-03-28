@@ -1,0 +1,76 @@
+
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.25;
+contract Integer{
+    // if we are initializing it with standard default value it can cost more gas
+    uint public myUnit;
+    uint8 public myUnit2;
+    uint256 public myUnit1; 
+    int public myint=-10;
+    // int -2^128 to +2^128-1
+    // uint 256 can store up to 0- (2^256-1)
+    function setmyUnit(uint _myUnit) public {
+        myUnit=_myUnit;
+    }
+    function IncrementInt() public {
+        myint++;
+    }
+
+}
+
+
+
+// there are no string manupalation function what so ever
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.15;
+// public view function its a reading function it return a value
+//IN general its not ok to use String in smart contract
+contract ExampleString{
+    string public myString="Hello World";
+    function setMyString(string memory _myString) public {
+        myString=_myString;
+    }
+    function compareTwoString(string memory _myString) public view returns(bool)
+    {
+        return keccak256(abi.encodePacked(myString))== keccak256(abi.encodePacked(_myString));
+
+    }
+
+    
+}
+
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.25;
+contract WrapAround{
+    uint256 public myUnit;
+    function setMyUnit(uint _myUnit) public 
+    {
+        myUnit=_myUnit;
+    }
+    function decrementUnit() public {
+       unchecked{
+          myUnit--;
+       }
+    //    wrap the arithmetic opretion in an unchecked block that will stop them erroring out
+       
+    }
+    function incrementUnit() public {
+        myUnit++;
+    }
+
+
+}
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.25;
+contract Address{
+    address public someAddress;
+    // address has  a balance property calls the member where you can get the balance
+    // 1eth = 10^18 wei
+    function setSomeAddress(address _someAddress) public{
+        someAddress=_someAddress;
+    } 
+    function getAddressBalance() public view returns(uint){
+        return someAddress.balance;
+    }
+
+}
