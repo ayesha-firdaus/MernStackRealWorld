@@ -1,18 +1,17 @@
-import React, { useState } from 'react'
-import CreateCabinForm from './CreateCabinForm';
-import Button from '../../ui/Button';
-import Modal from '../../ui/Modal';
-
+import Button from "../../ui/Button";
+import Modal from "../../ui/Modal";
+import  { CreateCabinForm } from "../cabins/CreateCabinForm";
+import React from 'react'
 
 export default function AddCabin() {
-   
   return (
-    <Modal  >
-        <Modal.close />
-        <Modal.open />
-{/*     
-    <Button onClick={()=>setisOpenModal(prev=>!prev)}>Add new Cabin</Button>
-    {isOpenModal&&<Modal onClose={setisOpenModal} ><CreateCabinForm onClose={setisOpenModal} /></Modal>} */}
-   </Modal>
+    <div>
+      <Modal>
+        <Modal.Open opens="cabin-form"><Button>Add new Cabin</Button></Modal.Open>
+        <Modal.Window name="cabin-form">
+          <CreateCabinForm />
+        </Modal.Window>
+      </Modal>
+    </div>
   )
 }

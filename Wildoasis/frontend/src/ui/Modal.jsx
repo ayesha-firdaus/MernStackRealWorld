@@ -1,6 +1,9 @@
 import styled from "styled-components";
-import {createPortal} from 'react-dom'
-const StyledModal=styled.div`
+import { createPortal } from 'react-dom'
+import React, { cloneElement, createContext, useContext, useState,useEffect, useRef} from 'react'
+import { HiXMark } from "react-icons/hi2";
+import {useHandleOutside} from "../services/useHandleOutside";
+const StyledModal = styled.div`
 position:fixed;
 top:50%;
 left:50%;
@@ -11,7 +14,7 @@ box-shadow:var(--shadow-lg);
 padding:3.2rem 4rem;
 transition:all 0.5s;
 `
-const Overlay=styled.div`
+const Overlay = styled.div`
     position: fixed;
     top: 0;
     left: 0;
@@ -47,48 +50,42 @@ const Button = styled.button`
     color: var(--color-grey-500);
   }
 `;
-import React, { createContext, useContext, useState } from 'react'
-import { HiXMark } from "react-icons/hi2";
 
-// export default function Modal({children,onClose}) {
-//   return createPortal(
-//     <Overlay>
-//     <StyledModal>
-//         <Button onClick={()=>onClose(prev=>!prev)}><HiXMark /></Button>
-//         <div>{children}</div></StyledModal>
-//     </Overlay>,
-//     document.body
-//   )
-// }
 
-const ModalContext=createContext()
-export default function Modal() {
-    const [isOpenModal,setisOpenModal]=useState(false);
-    function Toggle()
-    {
-        setisOpenModal((prev)=>!prev);
-    }
-   
-  return createPortal(
-    <ModalContext.Provider value={{isOpenModal,Toggle}}>
- <Overlay>
-   <StyledModal>
-             <Button onClick={()=>Toggle()}><HiXMark /></Button>
-       <div>{children}</div></StyledModal>
-            </Overlay>
-    </ModalContext.Provider>,document.body
+const ModalContext = createContext()
+export default function Modal({ children }) {
+  const [isOpenModal, setisOpenModal] = useState("");
+ 
+  function close() {
+    setisOpenModal('');
+  }
+  const open = setisOpenModal;
+  return (
+    <ModalContext.Provider value={{ open, isOpenModal, close }}>
+      {children}
+    </ModalContext.Provider>
   )
-  function open()
-  {
-    const {Toggle}=useContext();
-    Toggle();
-  }
-  function close()
-  {
-    const {Toggle}=useContext();
-    Toggle();
-  }
-   Modal.open=open;
-   Modal.close=close;
+}
+function Open({ children, opens }) {
+  const { open } = useContext(ModalContext);
+  return cloneElement(children, { onClick: () => open(opens) })
 }
 
+function Window({ children, name }) {
+  const { close, isOpenModal } = useContext(ModalContext);
+const ref=useHandleOutside(close);
+  if (name !== isOpenModal) {
+    return null;
+  }
+  return createPortal(<Overlay>
+    <StyledModal ref={ref}>
+      <Button onClick={close}><HiXMark /></Button>
+      <div>  {cloneElement(children, { onClose: close })}</div></StyledModal>
+  </Overlay>, document.body)
+}
+
+
+
+
+Modal.Open = Open;
+Modal.Window = Window;
